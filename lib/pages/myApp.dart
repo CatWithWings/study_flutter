@@ -109,7 +109,6 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
         setState(() {
           currentTabIndex = _tabController.index;
         });
-        print(_tabController.index);
       }
     }
   }

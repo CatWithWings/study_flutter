@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 
-import '../pages/home/home.dart';
+import '../pages/article/article.dart';
 
-Handler homePageHandler = Handler(
+Handler articlePageHandler = Handler(
     handlerFunc: (
       BuildContext context, Map<String, List<String>> params
     ) {
-      return HomePage();
+      String articleId = params['articleId']?.first;
+      String title = params['title']?.first;
+
+      return ArticlePage(articleId, title);
     }
 );
