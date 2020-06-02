@@ -30,7 +30,7 @@ class _RecommendPageState extends State<RecommendPage> with AutomaticKeepAliveCl
             this.pageCount++;
           });
           _retrieveData();
-        } else {
+        } else { // 模拟结束下拉加载标志
           setState(() {
             this.ifEnd = true;
           });
@@ -113,8 +113,11 @@ class _RecommendPageState extends State<RecommendPage> with AutomaticKeepAliveCl
     ];
     if (!this.isPerformingRequest) {
       setState(() => this.isPerformingRequest = true);
+
+      // 模拟请求
       new Timer(const Duration(milliseconds: 1000), () {
         setState(() {
+          // 模拟数据
           if (this.pageCount < 3) {
             for(var i = 0; i < 5; i++) {
               this.entries.addAll(testData);
