@@ -33,9 +33,6 @@ class _RecommendPageState extends State<RecommendPage> with AutomaticKeepAliveCl
         } else {
           setState(() {
             this.ifEnd = true;
-            if (this.entries[this.entries.length - 1]["stop"] != true) {
-              this.entries.add({ "stop": true });
-            }
           });
         }
       }
@@ -53,21 +50,21 @@ class _RecommendPageState extends State<RecommendPage> with AutomaticKeepAliveCl
     return Container(
       color: Color(0xfff5f5f5),
       child: ListView.separated(
-        itemCount: entries.length,
+        itemCount: entries.length + 1, // 最后一个元素是loading或no more
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index){
-          if (this.ifEnd == true && entries[index]["stop"] == true) {
-            print("end -->");
+          if (this.ifEnd == true && index == entries.length) {
             return Container(
                 alignment: Alignment.center,
                 padding: EdgeInsets.all(16.0),
                 child: Text("没有更多了", style: TextStyle(color: Colors.grey),)
             );
-          } else {
-            print("not end -->");
-            entries[index]["name"] = "Cat_$index";
-            return ListItem(entries[index]);
+          } else if (this.ifEnd != true && index == entries.length) {
+            return _buildProgressIndicator();
           }
+
+          entries[index]["name"] = "Cat_$index";
+          return ListItem(entries[index]);
         },
         //分割器构造器
         separatorBuilder: (BuildContext context, int index) {
